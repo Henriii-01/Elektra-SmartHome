@@ -1,0 +1,53 @@
+name: Release to HACS
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate integration with HACS
+        uses: hacs/action@main
+        with:
+          category: integration
+
+      - name: Build release zip
+        env:
+          VERSION_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          TAG="${VERSION_TAG}"
+          VERSION="${TAG#v}"
+          WORKDIR="$(mktemp -d)"
+          cp -r custom_components "$WORKDIR/"
+          MANIFEST="$WORKDIR/custom_components/elektra_verve/manifest.json"
+          export MANIFEST VERSION
+          python - <<'PY'
+import json, os
+manifest = os.environ["MANIFEST"]
+version = os.environ["VERSION"]
+with open(manifest) as f:
+    data = json.load(f)
+data["version"] = version
+with open(manifest, "w") as f:
+    json.dump(data, f, indent=2)
+    f.write("\n")
+PY
+          cd "$WORKDIR"
+          zip -r elektra_verve.zip custom_components -x "*.pyc" "*__pycache__*"
+          mv elektra_verve.zip "$GITHUB_WORKSPACE/"
+
+      - name: Publish release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: elektra_verve.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
