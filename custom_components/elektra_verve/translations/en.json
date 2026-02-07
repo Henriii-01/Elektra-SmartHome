@@ -21,38 +21,38 @@
   },
   "entity": {
     "sensor": {
-      "temp_group": { "name": "Group Temperature" },
-      "secs_preinf": { "name": "Pre-Infusion Time" },
-      "secs_distribution": { "name": "Distribution Time" },
-      "cups_counter": { "name": "Shot Counter" },
-      "temp_min_group": { "name": "Min Group Temperature" },
-      "temp_max_group": { "name": "Max Group Temperature" },
-      "secs_min_preinf": { "name": "Min Pre-Infusion Time" },
-      "secs_max_preinf": { "name": "Max Pre-Infusion Time" },
-      "firmware": { "name": "Firmware Version" },
-      "ap_status": { "name": "AP Status" },
-      "command_readback": { "name": "Command Register" },
-      "device_time": { "name": "Device Time" },
-      "device_date": { "name": "Device Date" }
+      "temp_group": { "name": "Brew Group Temperature" },
+      "secs_preinf": { "name": "Pre-Infusion Duration" },
+      "secs_distribution": { "name": "Brew Time After Preinfusion" },
+      "cups_counter": { "name": "Lifetime Shot Counter" },
+      "temp_min_group": { "name": "Min Brew Group Temperature" },
+      "temp_max_group": { "name": "Max Brew Group Temperature" },
+      "secs_min_preinf": { "name": "Min Pre-Infusion Duration" },
+      "secs_max_preinf": { "name": "Max Pre-Infusion Duration" },
+      "firmware": { "name": "Machine Firmware Version" },
+      "ap_status": { "name": "Access Point Status" },
+      "command_readback": { "name": "Command Echo Register" },
+      "device_time": { "name": "Machine Clock Time" },
+      "device_date": { "name": "Machine Clock Date" }
     },
     "binary_sensor": {
-      "ready": { "name": "Ready" },
-      "standby": { "name": "Standby" },
-      "heating": { "name": "Heating" },
-      "wifi_connected": { "name": "WiFi Connected" },
-      "alarm_1": { "name": "Alarm 1" },
-      "alarm_2": { "name": "Alarm 2" },
-      "water_alarm": { "name": "Water Alarm" }
+      "ready": { "name": "Ready to Brew" },
+      "standby": { "name": "Standby Mode" },
+      "heating": { "name": "Heating Active" },
+      "wifi_connected": { "name": "Wi-Fi Client Connected" },
+      "alarm_1": { "name": "Alarm 1 (device)" },
+      "alarm_2": { "name": "Alarm 2 (device)" },
+      "water_alarm": { "name": "Water Alarm (low tank)" }
     },
     "number": {
-      "set_temp_group": { "name": "Target Group Temperature" },
-      "set_secs_preinf": { "name": "Target Pre-Infusion Time" },
-      "night_cycle_start": { "name": "Night Cycle Start" },
-      "night_cycle_stop": { "name": "Night Cycle Stop" }
+      "set_temp_group": { "name": "Target Brew Group Temperature" },
+      "set_secs_preinf": { "name": "Target Pre-Infusion Duration" },
+      "night_cycle_start": { "name": "Night Cycle Start (minutes from midnight)" },
+      "night_cycle_stop": { "name": "Night Cycle Stop (minutes from midnight)" }
     },
     "switch": {
-      "set_supply": { "name": "Supply" },
-      "night_cycle_enable": { "name": "Night Cycle" }
+      "set_supply": { "name": "Main Supply Power" },
+      "night_cycle_enable": { "name": "Night Cycle Enabled" }
     }
   }
 }

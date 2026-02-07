@@ -9,7 +9,11 @@ from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntityDescription,
 )
-from homeassistant.components.number import NumberDeviceClass, NumberEntityDescription
+from homeassistant.components.number import (
+    NumberDeviceClass,
+    NumberEntityDescription,
+    NumberMode,
+)
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntityDescription,
@@ -289,6 +293,7 @@ NUMBER_DESCRIPTIONS: tuple[ElektraVerveNumberDescription, ...] = (
         translation_key="night_cycle_start",
         native_unit_of_measurement=UnitOfTime.MINUTES,
         icon="mdi:weather-night",
+        mode=NumberMode.SLIDER,
         native_step=1.0,
         native_min_value=0,
         native_max_value=1439,
@@ -304,6 +309,7 @@ NUMBER_DESCRIPTIONS: tuple[ElektraVerveNumberDescription, ...] = (
         translation_key="night_cycle_stop",
         native_unit_of_measurement=UnitOfTime.MINUTES,
         icon="mdi:weather-sunset-up",
+        mode=NumberMode.SLIDER,
         native_step=1.0,
         native_min_value=0,
         native_max_value=1439,

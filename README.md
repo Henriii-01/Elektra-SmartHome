@@ -35,38 +35,40 @@ Notes:
 ## Entities
 
 ### Sensors
-- Group Temperature (Celsius)
-- Pre-Infusion Time (seconds)
-- Distribution Time (seconds)
-- Shot Counter (total increasing)
-- Min Group Temperature (diagnostic)
-- Max Group Temperature (diagnostic)
-- Min Pre-Infusion Time (diagnostic)
-- Max Pre-Infusion Time (diagnostic)
-- Firmware Version (diagnostic)
-- AP Status (diagnostic)
-- Command Register (diagnostic)
-- Device Time (diagnostic)
-- Device Date (diagnostic)
+- Brew Group Temperature - live group temperature in °C
+- Pre-Infusion Duration - current programmed pre-infusion length in seconds
+- Brew Time After Preinfusion - brew duration after preinfusion completes (seconds)
+- Lifetime Shot Counter - total shots recorded by the machine (monotonic)
+- Min/Max Brew Group Temperature - lowest/highest group temps reported since power-on
+- Min/Max Pre-Infusion Duration - device-reported min/max allowable preinfusion times
+- Machine Firmware Version - firmware revision reported by the board (diagnostic)
+- Access Point Status - Wi-Fi AP status flags from the machine (diagnostic)
+- Command Echo Register - last command code echoed by the machine (diagnostic)
+- Machine Clock Time - time stored on the machine (diagnostic)
+- Machine Clock Date - date stored on the machine (diagnostic)
 
 ### Binary Sensors
-- Ready (running state)
-- Standby
-- Heating
-- Wi-Fi Connected
-- Alarm 1
-- Alarm 2
-- Water Alarm
+- Ready to Brew - machine warmed up and available
+- Standby Mode - energy-saving standby state
+- Heating Active - heaters currently running
+- Wi-Fi Client Connected - hotspot has a connected client
+- Alarm 1 (device) - board alarm flag
+- Alarm 2 (device) - board alarm flag
+- Water Alarm (low tank) - low/empty water condition flag
 
 ### Numbers (writeable)
-- Target Group Temperature (°C, bounded by device min/max)
-- Target Pre-Infusion Time (seconds, bounded by device min/max)
-- Night Cycle Start (minutes, preserves enable bit)
-- Night Cycle Stop (minutes)
+- Target Brew Group Temperature (°C, bounded by device min/max)
+- Target Pre-Infusion Duration (seconds, bounded by device min/max)
+- Night Cycle Start (minutes from midnight, preserves enable bit)
+- Night Cycle Stop (minutes from midnight)
+
+Night cycle values are minutes past 00:00 (0-1439). Handy examples:
+- 22:30 -> 1350
+- 06:30 -> 390
 
 ### Switches (writeable)
-- Supply (power)
-- Night Cycle Enable (toggles night-cycle bit while preserving time)
+- Main Supply Power
+- Night Cycle Enabled (toggles enable bit while preserving start/stop times)
 
 ## Notes
 - Communication stays local over the device access point.
