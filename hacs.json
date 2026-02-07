@@ -2,6 +2,7 @@
   "name": "Elektra Verve",
   "content_in_root": false,
   "render_readme": true,
-  "domains": ["elektra_verve"],
-  "homeassistant": "2023.8.0"
+  "homeassistant": "2023.8.0",
+  "zip_release": true,
+  "filename": "elektra_verve.zip"
 }
