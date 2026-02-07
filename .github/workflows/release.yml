@@ -2,7 +2,8 @@ name: Release to HACS
 
 on:
   release:
-    types: [published]
+    # created: draft release; published/prereleased: when released so the asset stays current
+    types: [created, published, prereleased]
   workflow_dispatch:
 
 jobs:
@@ -14,17 +15,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate integration with HACS
-        uses: hacs/action@22.5.0
-        with:
-          category: integration
-
       - name: Build release zip
         env:
-          VERSION_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || github.ref_name }}
         run: |
           set -euo pipefail
-          TAG="${VERSION_TAG}"
+          TAG="${RELEASE_TAG}"
           VERSION="${TAG#v}"
           WORKDIR="$(mktemp -d)"
           cp -r custom_components "$WORKDIR/"
@@ -35,9 +31,10 @@ jobs:
           zip -r elektra_verve.zip custom_components -x "*.pyc" "*__pycache__*"
           mv elektra_verve.zip "$GITHUB_WORKSPACE/"
 
-      - name: Publish release asset
-        uses: softprops/action-gh-release@v2
-        with:
-          files: elektra_verve.zip
+      - name: Upload release asset (idempotent)
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || github.ref_name }}
+        run: |
+          set -euo pipefail
+          gh release upload "$RELEASE_TAG" elektra_verve.zip --clobber
