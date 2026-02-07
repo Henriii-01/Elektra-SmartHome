@@ -73,3 +73,8 @@ Night cycle values are minutes past 00:00 (0-1439). Handy examples:
 ## Notes
 - Communication stays local over the device access point.
 - No cloud services are used.
+
+## Legal
+- This project is an independent, community-maintained integration and is not affiliated with, endorsed by, or sponsored by Elektra or any related brands.
+- All trademarks, product names, logos, and brands are the property of their respective owners and are used here for identification purposes only.
+- Use at your own risk. There is no warranty of any kind; you are responsible for verifying suitability and complying with local regulations and warranty terms.
