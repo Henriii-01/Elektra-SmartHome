@@ -1,0 +1,58 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Elektra Verve",
+        "description": "Enter the Elektra WiFi SSID named elektra_<SERIAL_NUMBER>. The device is reached at its fixed access point (192.168.4.1).",
+        "data": {
+          "ssid": "WiFi SSID"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the device. Make sure the machine WiFi is on and reachable.",
+      "invalid_ssid": "SSID must follow elektra_<SERIAL_NUMBER>.",
+      "ssid_mismatch": "The device serial does not match the SSID provided.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This device is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "temp_group": { "name": "Group Temperature" },
+      "secs_preinf": { "name": "Pre-Infusion Time" },
+      "secs_distribution": { "name": "Distribution Time" },
+      "cups_counter": { "name": "Shot Counter" },
+      "temp_min_group": { "name": "Min Group Temperature" },
+      "temp_max_group": { "name": "Max Group Temperature" },
+      "secs_min_preinf": { "name": "Min Pre-Infusion Time" },
+      "secs_max_preinf": { "name": "Max Pre-Infusion Time" },
+      "firmware": { "name": "Firmware Version" },
+      "ap_status": { "name": "AP Status" },
+      "command_readback": { "name": "Command Register" },
+      "device_time": { "name": "Device Time" },
+      "device_date": { "name": "Device Date" }
+    },
+    "binary_sensor": {
+      "ready": { "name": "Ready" },
+      "standby": { "name": "Standby" },
+      "heating": { "name": "Heating" },
+      "wifi_connected": { "name": "WiFi Connected" },
+      "alarm_1": { "name": "Alarm 1" },
+      "alarm_2": { "name": "Alarm 2" },
+      "water_alarm": { "name": "Water Alarm" }
+    },
+    "number": {
+      "set_temp_group": { "name": "Target Group Temperature" },
+      "set_secs_preinf": { "name": "Target Pre-Infusion Time" },
+      "night_cycle_start": { "name": "Night Cycle Start" },
+      "night_cycle_stop": { "name": "Night Cycle Stop" }
+    },
+    "switch": {
+      "set_supply": { "name": "Supply" },
+      "night_cycle_enable": { "name": "Night Cycle" }
+    }
+  }
+}

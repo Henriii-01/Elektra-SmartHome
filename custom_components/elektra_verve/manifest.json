@@ -1,0 +1,14 @@
+{
+  "domain": "elektra_verve",
+  "name": "Elektra Verve",
+  "version": "1.0.0",
+  "codeowners": [],
+  "documentation": "https://github.com/Henriii-01/Elektra-SmartHome/blob/main/README.md",
+  "issue_tracker": "https://github.com/Henriii-01/Elektra-SmartHome/issues",
+  "iot_class": "local_polling",
+  "integration_type": "device",
+  "config_flow": true,
+  "requirements": [],
+  "dependencies": [],
+  "loggers": ["custom_components.elektra_verve"]
+}
