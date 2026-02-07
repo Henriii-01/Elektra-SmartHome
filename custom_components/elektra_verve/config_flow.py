@@ -18,7 +18,7 @@ from .elektra_client import ElektraVerveClient
 _LOGGER = logging.getLogger(__name__)
 
 
-SSID_PATTERN = re.compile(r"^elektra_(?P<serial>[A-Za-z0-9]+)$", re.IGNORECASE)
+SSID_PATTERN = re.compile(r"^elektra-(?P<serial>[A-Za-z0-9]+)$", re.IGNORECASE)
 
 STEP_USER_DATA_SCHEMA = vol.Schema({vol.Required(CONF_SSID): str})
 
