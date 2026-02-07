@@ -20,6 +20,8 @@ from homeassistant.const import EntityCategory, UnitOfTemperature, UnitOfTime
 
 DOMAIN = "elektra_verve"
 
+CONF_SSID = "ssid"
+
 DEFAULT_HOST = "192.168.4.1"
 DEFAULT_SCAN_INTERVAL = 5  # seconds
 

@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Connect to Elektra Verve",
-        "description": "Enter the Elektra WiFi SSID named elektra-<SERIAL_NUMBER>. The device is reached at its fixed access point (192.168.4.1).",
+        "description": "Enter the Elektra WiFi SSID named elektra-SERIAL (example: elektra-123456). Make sure the Home Assistant host is currently connected to that hotspot (gateway 192.168.4.1).",
         "data": {
           "ssid": "WiFi SSID"
         }
@@ -11,7 +11,7 @@
     },
     "error": {
       "cannot_connect": "Cannot connect to the device. Make sure the machine WiFi is on and reachable.",
-      "invalid_ssid": "SSID must follow elektra-<SERIAL_NUMBER>.",
+      "invalid_ssid": "SSID must follow elektra-SERIAL (example: elektra-123456).",
       "ssid_mismatch": "The device serial does not match the SSID provided.",
       "unknown": "An unexpected error occurred."
     },

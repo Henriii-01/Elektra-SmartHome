@@ -10,9 +10,9 @@ import aiohttp
 import voluptuous as vol
 
 from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
-from homeassistant.const import CONF_HOST, CONF_SSID
+from homeassistant.const import CONF_HOST
 
-from .const import DEFAULT_HOST, DOMAIN
+from .const import CONF_SSID, DEFAULT_HOST, DOMAIN
 from .elektra_client import ElektraVerveClient
 
 _LOGGER = logging.getLogger(__name__)
