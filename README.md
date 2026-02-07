@@ -1,5 +1,10 @@
 # Elektra Verve Home Assistant Integration
 
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Custom%20Integration-41BDF5?logo=homeassistant&logoColor=white)](https://www.home-assistant.io/)
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?logo=homeassistantcommunitystore&logoColor=white)](https://hacs.xyz/)
+[![Downloads](https://img.shields.io/github/downloads/Henriii-01/Elektra-SmartHome/total)](https://github.com/Henriii-01/Elektra-SmartHome/releases)
+![Latest Downloads](https://img.shields.io/github/downloads/Henriii-01/Elektra-SmartHome/latest/total)
+
 Custom integration for connecting an Elektra Verve espresso machine to Home Assistant via the machine's built-in Wi-Fi access point (local only, no cloud).
 
 ## Features
