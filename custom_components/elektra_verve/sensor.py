@@ -9,7 +9,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import ElektraVerveSensorDescription, SENSOR_DESCRIPTIONS
 from .coordinator import ElektraVerveCoordinator
-from .entity import ElektraVerveEntity
+from .entity import ElektraVerveDescribedEntity
 
 
 async def async_setup_entry(
@@ -25,7 +25,7 @@ async def async_setup_entry(
     )
 
 
-class ElektraVerveSensor(ElektraVerveEntity, SensorEntity):
+class ElektraVerveSensor(ElektraVerveDescribedEntity, SensorEntity):
     """Sensor entity for the Elektra Verve."""
 
     entity_description: ElektraVerveSensorDescription
@@ -35,9 +35,7 @@ class ElektraVerveSensor(ElektraVerveEntity, SensorEntity):
         coordinator: ElektraVerveCoordinator,
         description: ElektraVerveSensorDescription,
     ) -> None:
-        super().__init__(coordinator)
-        self.entity_description = description
-        self._attr_unique_id = f"{coordinator.serial_number}_{description.key}"
+        super().__init__(coordinator, description)
 
     @property
     def native_value(self):

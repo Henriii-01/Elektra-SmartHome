@@ -25,22 +25,22 @@ class ElektraVerveClient:
 
     async def async_get_status(self) -> dict[str, Any]:
         """Fetch /elektra.txt and return parsed JSON."""
-        resp = await self._session.get(
+        async with self._session.get(
             f"{self._base_url}/elektra.txt",
             timeout=self._timeout,
-        )
-        resp.raise_for_status()
-        return await resp.json(content_type=None)
+        ) as resp:
+            resp.raise_for_status()
+            return await resp.json(content_type=None)
 
     async def async_write_register(self, register: int, value: int) -> bool:
         """Write a register value via /web.cgi?elektra_write=register|value."""
-        resp = await self._session.get(
+        async with self._session.get(
             f"{self._base_url}/web.cgi",
             params={"elektra_write": f"{register}|{value}"},
             timeout=self._timeout,
-        )
-        resp.raise_for_status()
-        text = await resp.text()
+        ) as resp:
+            resp.raise_for_status()
+            text = await resp.text()
         return "ELEKTRA" in text
 
     async def async_validate_connection(self) -> dict[str, Any]:

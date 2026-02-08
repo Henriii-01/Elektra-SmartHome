@@ -9,7 +9,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import BINARY_SENSOR_DESCRIPTIONS, ElektraVerveBinarySensorDescription
 from .coordinator import ElektraVerveCoordinator
-from .entity import ElektraVerveEntity
+from .entity import ElektraVerveDescribedEntity
 
 
 async def async_setup_entry(
@@ -25,7 +25,7 @@ async def async_setup_entry(
     )
 
 
-class ElektraVerveBinarySensor(ElektraVerveEntity, BinarySensorEntity):
+class ElektraVerveBinarySensor(ElektraVerveDescribedEntity, BinarySensorEntity):
     """Binary sensor entity for the Elektra Verve."""
 
     entity_description: ElektraVerveBinarySensorDescription
@@ -35,9 +35,7 @@ class ElektraVerveBinarySensor(ElektraVerveEntity, BinarySensorEntity):
         coordinator: ElektraVerveCoordinator,
         description: ElektraVerveBinarySensorDescription,
     ) -> None:
-        super().__init__(coordinator)
-        self.entity_description = description
-        self._attr_unique_id = f"{coordinator.serial_number}_{description.key}"
+        super().__init__(coordinator, description)
 
     @property
     def is_on(self) -> bool | None:

@@ -2,19 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Any
-
-import aiohttp
+from typing import Any, Callable
 
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .const import ElektraVerveSwitchDescription, SWITCH_DESCRIPTIONS
 from .coordinator import ElektraVerveCoordinator
-from .entity import ElektraVerveEntity
+from .entity import ElektraVerveDescribedEntity
 
 
 async def async_setup_entry(
@@ -30,7 +27,7 @@ async def async_setup_entry(
     )
 
 
-class ElektraVerveSwitch(ElektraVerveEntity, SwitchEntity):
+class ElektraVerveSwitch(ElektraVerveDescribedEntity, SwitchEntity):
     """Switch entity for the Elektra Verve."""
 
     entity_description: ElektraVerveSwitchDescription
@@ -40,9 +37,7 @@ class ElektraVerveSwitch(ElektraVerveEntity, SwitchEntity):
         coordinator: ElektraVerveCoordinator,
         description: ElektraVerveSwitchDescription,
     ) -> None:
-        super().__init__(coordinator)
-        self.entity_description = description
-        self._attr_unique_id = f"{coordinator.serial_number}_{description.key}"
+        super().__init__(coordinator, description)
 
     @property
     def is_on(self) -> bool | None:
@@ -59,20 +54,9 @@ class ElektraVerveSwitch(ElektraVerveEntity, SwitchEntity):
         """Turn the switch off."""
         await self._write(self.entity_description.off_fn)
 
-    async def _write(self, value_fn) -> None:
+    async def _write(self, value_fn: Callable[[dict[str, Any]], int]) -> None:
         """Write a computed value to the device register."""
-        try:
-            value = value_fn(self.coordinator.data or {})
-            success = await self.coordinator.client.async_write_register(
-                self.entity_description.register, value
-            )
-            if not success:
-                raise HomeAssistantError(
-                    f"Device did not acknowledge write to register "
-                    f"{self.entity_description.register}"
-                )
-        except (aiohttp.ClientError, TimeoutError) as err:
-            raise HomeAssistantError(
-                f"Failed to communicate with device: {err}"
-            ) from err
+        data = await self._async_require_data()
+        value = value_fn(data)
+        await self._async_write_register(self.entity_description.register, value)
         await self.coordinator.async_request_refresh()
