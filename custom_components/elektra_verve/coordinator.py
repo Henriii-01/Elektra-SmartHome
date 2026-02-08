@@ -51,6 +51,20 @@ class ElektraVerveCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     async def _async_update_data(self) -> dict[str, Any]:
         """Fetch latest status from the device."""
         try:
-            return await self.client.async_get_status()
+            data = await self.client.async_get_status()
+            # If the device is running (STATUS_FLAGS bit 0 set), poll faster.
+            status_flags = data.get("STATUS_FLAGS", 0)
+            running = bool(status_flags & 0x01)
+            desired_interval = timedelta(seconds=0.5) if running else timedelta(
+                seconds=DEFAULT_SCAN_INTERVAL
+            )
+            if self.update_interval != desired_interval:
+                self.update_interval = desired_interval
+                _LOGGER.debug(
+                    "Update interval changed to %s seconds (running=%s)",
+                    desired_interval.total_seconds(),
+                    running,
+                )
+            return data
         except Exception as err:
             raise UpdateFailed(f"Error communicating with device: {err}") from err

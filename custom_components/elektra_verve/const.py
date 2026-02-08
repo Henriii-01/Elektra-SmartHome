@@ -27,7 +27,7 @@ DOMAIN = "elektra_verve"
 CONF_SSID = "ssid"
 
 DEFAULT_HOST = "192.168.4.1"
-DEFAULT_SCAN_INTERVAL = 5  # seconds
+DEFAULT_SCAN_INTERVAL = 2  # seconds
 
 MANUFACTURER = "Elektra"
 MODEL = "Verve"
